@@ -29,6 +29,7 @@ session_start();
                     <span class="total" id="total"></span><span class="total">€</span>
                     <h3 id="iddesc"></h3>
                     <div id="idcat">Categoría:' + data.datos[i].catpro + </div>
+                    <input type="number" id="cantidad" name="cantidad" min="1" minvalue="1" value="1" onkeydown="return false">
                     <button onclick="iniciar_compra()">Añadir al carrito</button>
                     <?php include("servicios/compra/pasarela.php"); ?>
                 </div>
@@ -108,11 +109,15 @@ session_start();
         }
 
         function iniciar_compra() {
+            var cantidad = document.getElementById("cantidad").value;
+            var precio = document.getElementById("total").innerHTML;
             $.ajax({
                 url: 'servicios/compra/validar_inicio_compra.php',
                 type: 'POST',
                 data: {
-                    codpro: p
+                    codpro: p,
+                    cantidad: cantidad,
+                    precio: precio
                 },
                 success: function(data) {
                     console.log(data);

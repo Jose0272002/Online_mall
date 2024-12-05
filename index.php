@@ -60,10 +60,10 @@ session_start();
             <h2>Filtros de búsqueda: </h2>
             <form action="filtrado.php" method="POST" onsubmit="return validarFiltros()">
                 <label for="precio_minimo">Precio Mínimo:<span id="precioMinLabel">0€</span></label>
-                <input type="range" id="precio_minimo" name="precio_minimo" min="0" max="1000" value="0" step="1" oninput="actualizarRango('precio_minimo', 'precioMinLabel')">
+                <input type="range" id="precio_minimo" name="precio_minimo" min="0" max="2000" value="0" step="1" oninput="actualizarRango('precio_minimo', 'precioMinLabel')">
 
-                <label for="precio_maximo">Precio Máximo:<span id="precioMaxLabel">5000€</span></label>
-                <input type="range" id="precio_maximo" name="precio_maximo" min="0" max="5000" value="5000" step="1" oninput="actualizarRango('precio_maximo', 'precioMaxLabel')">
+                <label for="precio_maximo">Precio Máximo:<span id="precioMaxLabel">2000€</span></label>
+                <input type="range" id="precio_maximo" name="precio_maximo" min="0" max="2000" value="5000" step="1" oninput="actualizarRango('precio_maximo', 'precioMaxLabel')">
 
                 <label for="categoria">Selecciona una categoría:</label>
                 <select id="categoria" name="categoria">

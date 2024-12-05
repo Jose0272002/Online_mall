@@ -24,7 +24,7 @@ if (!isset($_SESSION['codusu'])) {
     <?php include("components/header.php"); ?>
     <div class="main-content">
         <div class="content-page">
-            <h3>Nuestras ventas</h3>
+            <h3>Ventas</h3>
             <div class="body-pedidos" id="space-list"></div>
         </div>
 

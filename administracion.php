@@ -20,7 +20,7 @@ session_start();
     <?php include("components/header.php") ?>
     <div class="main-content">
         <div class="content-page">
-            <div class="title-section">Mis Compras</div>
+            <div class="title-section">Ventas</div>
             <div class="products-list" id="space-list">
 
             </div>
@@ -30,7 +30,7 @@ session_start();
     <script type="text/javascript">
         $(document).ready(function() {
             $.ajax({
-                url: 'servicios/pedido/get_pedidos.php',
+                url: 'servicios/admin/get_ventas.php',
                 type: 'POST',
                 data: {},
                 success: function(data) {
@@ -43,6 +43,8 @@ session_start();
                             '</div>' +
                             '<div class="detalle">' +
                             '<h2>' + data.datos[i].nompro.toUpperCase() + '</h2>' +
+                            '<p>Usuario: ' + data.datos[i].nomusu + '</p>' +
+                            '<p> Codigo Pedido:' + data.datos[i].codped + '</p>' +
                             '<p> Fecha:' + data.datos[i].fecped + '</p>' +
                             '<p> Estado:' + data.datos[i].estado + '</p>' +
                             '<p>Descripción:' + data.datos[i].despro + '</p>' +

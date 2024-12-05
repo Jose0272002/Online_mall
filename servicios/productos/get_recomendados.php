@@ -3,8 +3,16 @@ include('../conexion.php');
 $response=new stdClass();
 $datos=[];
 $i=0;
-$sql='SELECT * FROM producto WHERE estado = 1 ORDER BY prepro DESC LIMIT 10;';
+$sql = 'SELECT pro.*, SUM(pp.cantidad) as total_vendidos 
+        FROM producto pro 
+        JOIN pedido_producto pp ON pro.codpro = pp.codpro 
+        WHERE pro.estado = 1 
+        GROUP BY pro.codpro 
+        ORDER BY total_vendidos DESC 
+        LIMIT 10 ';
+
 $result=mysqli_query($con,$sql);
+
 while($row=mysqli_fetch_array($result)){
     $obj=new stdClass();
     $obj->codpro=$row['codpro'];

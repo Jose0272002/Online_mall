@@ -56,39 +56,38 @@
             actions.order.capture().then(function(detalles) {
                 console.log(detalles.payer.name)
             });
-            if (window.location.href == "http://netmall.duckdns.org/carrito.php") {
+            if (window.location.href == "https://localhost/tienda/carrito.php") {
                 $.ajax({
                     url: 'servicios/pedido/confirm.php',
                     type: 'POST',
                     data: {
-                        dirusu: "",
-                        telusu: ""
+                        codped: "",
+                        total: "",
+                        email: ""
+
                     },
                     success: function(data) {
                         console.log(data);
                         if (data.state) {
-                            window.location.href = 'http://netmall.duckdns.org/pedidos.php';
+                            window.location.href = 'https://localhost/tienda/pedidos.php';
                         } else {
                             alert(data.details)
                         }
                     },
-                    error: function(err) {
-                        console.error("Error fetching data:", err.responseText);
-                    }
+                    
                 });
-            } else if (window.location.href.indexOf("http://netmall.duckdns.org/producto.php") !== -1) {
+            } else if (window.location.href.indexOf("https://localhost/tienda/producto.php") !== -1) {
                 $.ajax({
                     url: 'servicios/productos/compra_individual.php',
                     type: 'POST',
                     data: {
                         codpro: p,
-                        dirusu: "",
-                        telusu: ""
+                        cantidad: document.getElementById("cantidad").value
                     },
                     success: function(data) {
                         console.log(data);
                         if (data.state) {
-                            window.location.href = 'http://netmall.duckdns.org/historial.php';
+                            window.location.href = 'https://localhost/tienda/historial.php';
                         } else {
                             alert(data.details)
                         }
@@ -102,9 +101,8 @@
 
 
             return actions.payment.execute().then(function() {
-                var mensaje = "URL actual: " + window.location;
-                window.alert(mensaje);
-
+                window.alert('Payment Complete!');
+                window.location.reload();
             });
         }
 

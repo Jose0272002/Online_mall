@@ -50,16 +50,18 @@ if (!isset($_SESSION['codusu'])) {
                             '<img src="images/products/' + data.datos[i].Img_prod + '" alt="">' +
                             '</div>' +
                             '<div class="pedido-detalle">' +
-                            '<h3>' + data.datos[i].nompro + '</h3>' +
-                            '<p><b>Precio:</b> ' + data.datos[i].prepro + '€</p>' +
+                            '<h2>' + data.datos[i].nompro.toUpperCase() + '</h2>' +
+                            '<p><b>Precio :</b> ' + data.datos[i].prepro * data.datos[i].cantidad  + '€</p>' +
+                            '<p><b>Precio por articulo:</b> ' + data.datos[i].prepro  + '€</p>' +
                             '<p><b>Fecha:</b>' + data.datos[i].fecped + '</p>' +
                             '<p><b>Estado:</b>' + data.datos[i].estadotext + '</p>' +
+                            '<p><b>Cantidad:'+data.datos[i].cantidad+'</b></p>'+
                             '<button class="btn-borrar" onclick="delete_product(' + data.datos[i].codped +
                             ')">Eliminar</button>' +
                             '</div>' +
                             '</div>';
                         if (data.datos[i].estado == 1) {
-                            total += parseFloat(data.datos[i].prepro)
+                            total += parseFloat(data.datos[i].prepro * data.datos[i].cantidad)
                         }
 
                     }

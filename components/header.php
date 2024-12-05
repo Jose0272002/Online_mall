@@ -7,9 +7,9 @@
         <button class="btn-main btn-search" onclick="buscar_producto()"><i class="fa fa-search" aria-hidden="true"></i></button>
     </div>
     <div class="options-place">
-       
-        <div class="item-option" title="Pedidos">
-            <a href="Pedidos.php"> <i class="fa fa-list-alt" aria-hidden="true"></i></a>
+
+        <div class="item-option" title="mis Pedidos">
+            <a href="historial.php"> <i class="fa fa-list-alt" aria-hidden="true"></i></a>
         </div>
         <div class="item-option" title="Inicio">
             <a href="index.php"><i class="fa fa-home" aria-hidden="true"></i></a>
@@ -54,6 +54,16 @@ if (isset($_SESSION["codusu"])) {
 ?>
     <div class="menu-opciones" id="ctrl-menu">
         <ul>
+            <li>
+                <a href="index.php">
+                    <div class="menu-opcion">Home</div>
+                </a>
+            </li>
+            <li>
+                <a href="carrito.php">
+                    <div class="menu-opcion">Carrito</div>
+                </a>
+            </li>
             <li>
                 <a href="historial.php">
                     <div class="menu-opcion">Historial de compras</div>

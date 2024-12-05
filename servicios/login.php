@@ -1,33 +1,54 @@
 <?php
-//1:error de conexión
-//2:email invalido
-//3:contraseña incorrecta
+// Incluye la conexión a la base de datos
 include('conexion.php');
-$emausu=$_POST['emausu'];
-$sql="SElECT * FROM USUARIO WHERE emausu='$emausu'";
-$result=mysqli_query($con,$sql);
-if($result){
-    $row=mysqli_fetch_array($result);
-    $cont=mysqli_num_rows($result);
-    if($cont!=0){
-        $pasusu=$_POST['pasusu'];
-        if($row['pasusu']!=$pasusu){
-            header('Location:../login.php?e=3');
-        }
-        else{
-            session_start();
-            $_SESSION['codusu']=$row['codusu'];
-            $_SESSION['emausu']=$row['emausu'];
-            $_SESSION['nomusu']=$row['nomusu'];
-            header('Location:../');
-        }
-    }
-    else{
-        
-        header('Location:../login.php?e=2');
-    }
+
+// Obtiene los datos del formulario
+$emausu = trim($_POST['emausu']);
+$pasusu = $_POST['pasusu'];
+
+// Valida que los campos no estén vacíos
+if (empty($emausu) || empty($pasusu)) {
+    header('Location:../login.php?e=1'); // Error: campos vacíos
+    exit();
 }
-else{
+
+// Valida que el email tenga un formato correcto
+if (!filter_var($emausu, FILTER_VALIDATE_EMAIL)) {
+    header('Location:../login.php?e=2'); // Error: email inválido
+    exit();
+}
+
+// Consulta parametrizada para buscar el usuario
+$sql = "SELECT * FROM usuario WHERE emausu = ?";
+$stmt = $con->prepare($sql);
+$stmt->bind_param('s', $emausu);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Verifica si el usuario existe
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+
+    // Verifica la contraseña usando password_verify
     
-    header('Location:../login.php?e=1');
+    if (password_verify($pasusu, $row['pasusu'])) {
+        // Inicia sesión y guarda los datos del usuario
+        session_start();
+        $_SESSION['codusu'] = $row['codusu'];
+        $_SESSION['emausu'] = $row['emausu'];
+        $_SESSION['nomusu'] = $row['nomusu'];
+
+        // Redirige al inicio
+        header('Location:../');
+        exit();
+    } else {
+        // Contraseña incorrecta
+        header('Location:../login.php?e=3');
+        exit();
+    }
+} else {
+    // Usuario no encontrado
+    header('Location:../login.php?e=2');
+    exit();
 }
+?>
